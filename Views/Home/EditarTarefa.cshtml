@@ -1,0 +1,52 @@
+@model gerenciadorTarefas.Models.Tarefa
+
+<div class="container mt-4">
+    <h2>Editar Tarefa</h2>
+
+    <form asp-action="EditTarefa" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Descricao" class="form-label">Descrição</label>
+            <input asp-for="Descricao" class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DataDeVencimento" class="form-label">Data de Vencimento</label>
+            <input asp-for="DataDeVencimento" class="form-control" type="date" />
+            <span asp-validation-for="DataDeVencimento" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoriaId" class="form-label">Categoria</label>
+            <select asp-for="CategoriaId" class="form-select">
+                <option value="">Selecione uma categoria</option>
+                @foreach (var categoria in (IEnumerable<gerenciadorTarefas.Models.Categoria>)ViewBag.Categorias)
+                {
+                    <option value="@categoria.CategoriaId">
+                        @categoria.Nome
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="CategoriaId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="StatusId" class="form-label">Status</label>
+            <select asp-for="StatusId" class="form-select">
+                <option value="">Selecione um status</option>
+                @foreach (var status in (IEnumerable<gerenciadorTarefas.Models.Status>)ViewBag.Status)
+                {
+                    <option value="@status.StatusId">
+                        @status.Nome
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="StatusId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

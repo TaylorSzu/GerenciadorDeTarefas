@@ -1,0 +1,38 @@
+@model IEnumerable<Categoria>
+
+<div class="container mt-4">
+    <h3>Gerenciar Categorias</h3>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var categoria in Model)
+                {
+                    <tr>
+                        <td>@categoria.CategoriaId</td>
+                        <td>@categoria.Nome</td>
+                        <td>
+                            <a asp-controller="Home" asp-action="EditCategoriaView" asp-route-id="@categoria.CategoriaId" class="btn btn-warning btn-sm">Editar</a>
+                            <form asp-action="DeletarCategoria" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@categoria.CategoriaId" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Deletar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Voltar</a>
+    <a asp-controller="Home" asp-action="NovaCategoria" class="btn btn-success">Criar Nova Categoria</a>
+</div>
